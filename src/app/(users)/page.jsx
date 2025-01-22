@@ -1,5 +1,15 @@
 import React from "react";
 
+//? import components
+import Chips from "@/components/Chips";
+
+//? import icons
+import { PiCoinsLight } from "react-icons/pi";
+
+//? import mui
+import Avatar from "@mui/material/Avatar";
+import AvatarGroup from "@mui/material/AvatarGroup";
+
 function page() {
   return (
     <div>
@@ -46,6 +56,19 @@ function page() {
               <br />و با بهترین مسیر ممکن به مقصدتون برسید.
             </p>
             <div class="max-w-screen-sm h-0.5 bg-[#BEC1F333] mb-4 md:mb-7"></div>
+            <div className="flex items-center justify-evenly">
+              <div>
+                <button className="px-10 py-5 rounded-full text-white font-bold bg-blue-500 hover:bg-blue-400 transition-all shadow-md shadow-blue-200">
+                  بزن بریم !
+                </button>
+              </div>
+              <AvatarGroup total={4} spacing={30}>
+                <Avatar alt="Remy Sharp" src="/assets/img/avatar1.jpg"/>
+                <Avatar alt="Travis Howard" src="/assets/img/avatar2.jpg" />
+                <Avatar alt="Travis Howard" src="/assets/img/avatar2.jpg" />
+                <Avatar alt="Cindy Baker" src="/assets/img/avatar3.jpg" />
+              </AvatarGroup>
+            </div>
           </div>
           <div className="w-[80%] md:w-[45%] max-w-screen-sm relative">
             <div class="aspect-w-4 aspect-h-4 mb-4">
@@ -110,6 +133,34 @@ function page() {
               </svg>
             </div>
           </div>
+        </div>
+        {/* chips section */}
+        <div className="my-16 sm:my-28 grid grid-cols-10 gap-4 md:gap-8 container md:max-w-screen-xl">
+          <Chips
+            icon={<PiCoinsLight className="icon text-white" />}
+            text="تضمین بازگشت وجه"
+            tooltip="اگه راضی نبودید تا 7 روز فرضت دارید انصراف بدید"
+          />
+          <Chips
+            icon={<PiCoinsLight className="icon text-white" />}
+            text="تضمین بازگشت وجه"
+            tooltip="اگه راضی نبودید تا 8 روز فرضت دارید انصراف بدید"
+          />
+          <Chips
+            icon={<PiCoinsLight className="icon text-white" />}
+            text="تضمین بازگشت وجه"
+            tooltip="اگه راضی نبودید تا 9 روز فرضت دارید انصراف بدید"
+          />
+          <Chips
+            icon={<PiCoinsLight className="icon text-white" />}
+            text="تضمین بازگشت وجه"
+            tooltip="اگه راضی نبودید تا 10 روز فرضت دارید انصراف بدید"
+          />
+          <Chips
+            icon={<PiCoinsLight className="icon text-white" />}
+            text="تضمین بازگشت وجه"
+            tooltip="اگه راضی نبودید تا 11 روز فرضت دارید انصراف بدید"
+          />
         </div>
       </section>
     </div>
