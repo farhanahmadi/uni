@@ -2,9 +2,14 @@ import React from "react";
 
 //? import components
 import Chips from "@/components/Chips";
+import Courses from "@/app/(users)/Courses";
 
 //? import icons
 import { PiCoinsLight } from "react-icons/pi";
+import { GoShieldCheck } from "react-icons/go";
+import { LuUserCheck } from "react-icons/lu";
+import { IoTimeOutline } from "react-icons/io5";
+import { VscDebugConsole } from "react-icons/vsc";
 
 //? import mui
 import Avatar from "@mui/material/Avatar";
@@ -13,7 +18,7 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 function page() {
   return (
     <div>
-      <section className="container md:max-w-screen-lg mx-auto mt-12 md:mt-16">
+      <section className="container md:max-w-screen-xl mx-auto mt-12 md:mt-16">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="800"
@@ -142,26 +147,28 @@ function page() {
             tooltip="اگه راضی نبودید تا 7 روز فرضت دارید انصراف بدید"
           />
           <Chips
-            icon={<PiCoinsLight className="icon text-white" />}
-            text="تضمین بازگشت وجه"
-            tooltip="اگه راضی نبودید تا 8 روز فرضت دارید انصراف بدید"
+            icon={<GoShieldCheck className="icon text-white" />}
+            text="تضمین کیفیت"
+            tooltip="بهترین آموزش و به روز ترین کیفیت را در سطح کشوری دریافت میکنید"
           />
           <Chips
-            icon={<PiCoinsLight className="icon text-white" />}
-            text="تضمین بازگشت وجه"
-            tooltip="اگه راضی نبودید تا 9 روز فرضت دارید انصراف بدید"
+            icon={<LuUserCheck className="icon text-white" />}
+            text="همراه مربی"
+            tooltip="با مربی های حرفه ای و با حوصله تمرین میکنید"
           />
           <Chips
-            icon={<PiCoinsLight className="icon text-white" />}
-            text="تضمین بازگشت وجه"
-            tooltip="اگه راضی نبودید تا 10 روز فرضت دارید انصراف بدید"
+            icon={<IoTimeOutline className="icon text-white" />}
+            text="ویدیو های کوتاه و با کیفیت"
+            tooltip="هر مبحث به صورت ویدیو کوتاه و در عین حال کامل تهییه شده است"
           />
           <Chips
-            icon={<PiCoinsLight className="icon text-white" />}
-            text="تضمین بازگشت وجه"
-            tooltip="اگه راضی نبودید تا 11 روز فرضت دارید انصراف بدید"
+            icon={<VscDebugConsole className="icon text-white" />}
+            text="کار بردی و پروژه محور"
+            tooltip="با کار روی پروژه هایی واقعی بازار کار را از نزدیک لمس کنید"
           />
         </div>
+         {/* courses section */}
+         <Courses />
       </section>
     </div>
   );

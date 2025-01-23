@@ -11,8 +11,8 @@ function Chips({ icon, text, tooltip }) {
       false scale-100 hover:scale-110 transition-all duration-300"
     >
       <Tooltip title={tooltip} className="font-sans">
-        <div className="p-3 md:p-6 rounded-3xl duration-300 transition-all flex flex-col justify-between flex-1 gap-y-4">
-          <div className="bg-gradient-to-br from-[#6980FE] to-[#6A82FE] p-5 md:p-6 rounded-3xl duration-300 transition-all flex flex-col justify-between flex-1 gap-y-4 mx-auto">
+        <div className="p-3 rounded-3xl duration-300 transition-all flex flex-col justify-between flex-1 gap-y-4">
+          <div className="bg-gradient-to-br from-cyan-400 to-[#6A82FE] p-5 rounded-[40px] duration-300 transition-all flex flex-col justify-between flex-1 gap-y-4 mx-auto">
             {icon}
           </div>
           <p className="font-medium mt-2 text-sm">{text}</p>
