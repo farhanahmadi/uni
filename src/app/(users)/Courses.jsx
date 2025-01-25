@@ -1,5 +1,8 @@
 import React from "react";
 
+//? import components
+import Slider from "@/components/Slider";
+
 function Courses() {
   return (
     <div className="bg-gray-200 rounded-md w-full p-4 grid grid-cols-12 ">
@@ -18,7 +21,7 @@ function Courses() {
         </button>
       </div>
       <div className="col-span-8">
-        <div className="h-[300px]"></div>
+        <Slider />
       </div>
     </div>
   );
