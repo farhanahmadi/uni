@@ -3,6 +3,7 @@ import React from "react";
 //? import components
 import Chips from "@/components/Chips";
 import Courses from "@/app/(users)/Courses";
+import Comments from "@/app/(users)/Comments";
 
 //? import icons
 import { PiCoinsLight } from "react-icons/pi";
@@ -18,7 +19,7 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 function page() {
   return (
     <div>
-      <section className="container md:max-w-screen-xl mx-auto mt-12 md:mt-16">
+      <div className="container md:max-w-screen-xl mx-auto mt-12 md:mt-16">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="800"
@@ -50,17 +51,17 @@ function page() {
           </defs>
         </svg>
         {/* banner */}
-        <div className="flex gap-y-9 flex-col-reverse items-center md:flex-row md:gap-x-5 md:items-center md:justify-between">
+        <div className="flex gap-y-9 flex-col-reverse items-center md:flex-row md:gap-x-5 md:items-center md:justify-between max-w-4xl mx-auto">
           <div>
             <h1 className="text-5xl font-extrabold text-blue-900 leading-relaxed">
               برنامه نویسی را سریع
               <br /> و آسان یاد بگیر
             </h1>
-            <p class="text-xs md:text-lg font-medium text-gray-400 mb-6 md:mb-2 mt-5">
+            <p className="text-xs md:text-lg font-medium text-gray-400 mb-6 md:mb-2 mt-5">
               ما کنارتون هستیم تا عمیق یاد بگیرید،
               <br />و با بهترین مسیر ممکن به مقصدتون برسید.
             </p>
-            <div class="max-w-screen-sm h-0.5 bg-[#BEC1F333] mb-4 md:mb-7"></div>
+            <div className="max-w-screen-sm h-0.5 bg-[#BEC1F333] mb-4 md:mb-7"></div>
             <div className="flex items-center justify-evenly">
               <div>
                 <button className="px-10 py-5 rounded-full text-white font-bold bg-blue-500 hover:bg-blue-400 transition-all shadow-md shadow-blue-200">
@@ -68,7 +69,7 @@ function page() {
                 </button>
               </div>
               <AvatarGroup total={4} spacing={30}>
-                <Avatar alt="Remy Sharp" src="/assets/img/avatar1.jpg"/>
+                <Avatar alt="Remy Sharp" src="/assets/img/avatar1.jpg" />
                 <Avatar alt="Travis Howard" src="/assets/img/avatar2.jpg" />
                 <Avatar alt="Travis Howard" src="/assets/img/avatar2.jpg" />
                 <Avatar alt="Cindy Baker" src="/assets/img/avatar3.jpg" />
@@ -76,7 +77,7 @@ function page() {
             </div>
           </div>
           <div className="w-[80%] md:w-[45%] max-w-screen-sm relative">
-            <div class="aspect-w-4 aspect-h-4 mb-4">
+            <div className="aspect-w-4 aspect-h-4 mb-4">
               <img
                 alt="وبسایت آموزش برنامه نویسی |فرانت هوکس"
                 sizes="100vw"
@@ -167,9 +168,15 @@ function page() {
             tooltip="با کار روی پروژه هایی واقعی بازار کار را از نزدیک لمس کنید"
           />
         </div>
-         {/* courses section */}
-         <Courses />
-      </section>
+        <div className="mb-20">
+          {/* courses section */}
+          <Courses />
+        </div>
+        <div>
+          {/* comments section */}
+          <Comments />
+        </div>
+      </div>
     </div>
   );
 }

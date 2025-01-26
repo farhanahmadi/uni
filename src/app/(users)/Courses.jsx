@@ -1,16 +1,16 @@
 import React from "react";
 
 //? import components
-import Slider from "@/components/Slider";
+import CoursesSlider from "@/components/CoursesSlider";
 
 function Courses() {
   return (
     <div className="bg-gray-200 rounded-md w-full p-4 grid grid-cols-12 ">
       <div className="col-span-4 flex flex-col items-start justify-end">
-        <h2 className="text-4xl font-extrabold text-blue-900 leading-relaxed">
+        <h2 className="text-4xl font-extrabold text-[#2A2D53] leading-relaxed">
           جدید ترین دوره ها
         </h2>
-        <p class="text-sm font-extralight text-gray-400 mb-6 md:mb-2 my-1">
+        <p className="text-sm font-extralight text-gray-400 mb-6 md:mb-2 my-1">
           دوره ببین، تمرین کن، برنامه نویس شو
         </p>
         <button
@@ -21,7 +21,7 @@ function Courses() {
         </button>
       </div>
       <div className="col-span-8">
-        <Slider />
+        <CoursesSlider />
       </div>
     </div>
   );
