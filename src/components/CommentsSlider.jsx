@@ -16,7 +16,7 @@ function CoursesSlider() {
   return (
     <div>
       <Swiper
-        spaceBetween={0}
+        spaceBetween={10}
         slidesPerView={"auto"}
         loop={true}
         navigation={true}

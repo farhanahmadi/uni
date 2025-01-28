@@ -32,7 +32,7 @@ function Comments() {
           </button>
         </div>
       </div>
-      <div className="col-span-8">
+      <div className="col-span-8 bg-[#EBECEE] p-2 rounded-lg shadow shadow-gray-200">
         <CommentsSlider />
       </div>
     </div>
