@@ -16,29 +16,29 @@ function CoursesSlider() {
   return (
     <div>
       <Swiper
-        spaceBetween={10}
+        spaceBetween={20}
         slidesPerView={"auto"}
         loop={true}
         navigation={true}
         freeMode={true}
         modules={[Pagination, Navigation, FreeMode]}
       >
-        <SwiperSlide className="max-w-sm">
+        <SwiperSlide className="max-w-fit">
           <Comment />
         </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
+        <SwiperSlide className="max-w-fit">
           <Comment />
         </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
+        <SwiperSlide className="max-w-fit">
           <Comment />
         </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
+        <SwiperSlide className="max-w-fit">
           <Comment />
         </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
+        <SwiperSlide className="max-w-fit">
           <Comment />
         </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
+        <SwiperSlide className="max-w-fit">
           <Comment />
         </SwiperSlide>
       </Swiper>

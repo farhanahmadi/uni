@@ -7,10 +7,11 @@ import { IoIosRemove } from "react-icons/io";
 
 //? import mui
 import Avatar from "@mui/material/Avatar";
+import Rating from "@mui/material/Rating";
 
 function Comment() {
   return (
-    <div className="bg-white rounded-lg p-4">
+    <div className="bg-white shadow-[0px_3px_30px_rgba(100,100,100,0.17)] p-4 lg:p-5 rounded-2xl max-w-[365px]">
       <div className="flex items-center gap-x-1 mb-5">
         <BiLike className="w-5 h-5 text-green-500" />
         <h5 className="text-base text-green-500">پیشنهاد میکنم</h5>
@@ -66,7 +67,9 @@ function Comment() {
               </p>
             </div>
           </div>
-          <div></div>
+          <div>
+            <Rating name="read-only" value={3} readOnly size="small" />
+          </div>
         </div>
       </div>
     </div>
