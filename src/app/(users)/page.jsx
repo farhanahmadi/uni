@@ -5,6 +5,7 @@ import Chips from "@/components/Chips";
 import Courses from "@/app/(users)/Courses";
 import Comments from "@/app/(users)/Comments";
 import RoadMap from "@/app/(users)/RoadMap";
+import Footer from "@/app/(users)/Footer";
 
 //? import icons
 import { PiCoinsLight } from "react-icons/pi";
@@ -181,6 +182,9 @@ function page() {
           {/* road map section */}
           <RoadMap />
         </div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );
