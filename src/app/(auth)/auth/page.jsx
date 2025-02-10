@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 //? import mui
 import Box from "@mui/material/Box";
@@ -6,52 +8,55 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 
+//? import components
+import SendCode from "@/app/(auth)/auth/SendCode";
+import CheckCode from "@/app/(auth)/auth/CheckCode";
+
 const steps = ["احراز هویت", "تکمیل اطلاعات", "ثبت سفارش"];
 
 function page() {
+  const [data, setData] = useState({
+    phoneNumber: "",
+    code: "",
+  });
+  const [step, setStep] = useState(0);
+
+  const dataHandler = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const setStepHandler = (status) => {
+    setStep(status);
+  };
+  console.log(data);
+
+  const renderSteps = () => {
+    switch (step) {
+      case 0:
+        return (
+          <SendCode
+            data={data}
+            dataHandler={dataHandler}
+            setStepHandler={setStepHandler}
+          />
+        );
+      case 1:
+        return (
+          <CheckCode
+            data={data}
+            dataHandler={dataHandler}
+            setStepHandler={setStepHandler}
+          />
+        );
+      default:
+        break;
+    }
+  };
   return (
     <div className="flex h-screen">
       <div className="h-full w-full lg:w-[30%] lg:bg-gray-100 bg-white flex items-center justify-center lg:justify-end">
         <div className="w-full max-w-sm lg:ml-[-200px] z-20 relative">
-          <div className="bg-white rounded-2xl p-8 w-full">
-            <div className="flex items-center mt-2 mb-6">
-              <div className="text-gray-800 font-extrabold text-2xl text-center flex-1">
-                فرانت لرن
-              </div>
-            </div>
-            <div className="text-gray-800 font-bold mb-4">ورود | ثبت نام</div>
-            <div className="py-4">
-              <div style={{ opacity: "1", transform: "none" }}>
-                <form className="flex flex-col">
-                  <span className="text-gray-600 mb-2 text-sm">سلام !</span>
-                  <div className="textField">
-                    <label htmlFor="username" className="text-gray-600 text-sm">
-                      لطفا ایمیل یا شماره موبایل خود را وارد کنید
-                    </label>
-                    <input
-                      type="text"
-                      name="username"
-                      id="username"
-                      dir="ltr"
-                      className="w-full mt-5 rounded-lg border bg-gray-100 hover:border-blue-300 focus:border-blue-300 focus:shadow-lg focus:shadow-blue-200 py-3 px-5 focus:outline-none focus:bg-white transition-all duration-300 outline-none text-gray-600 placeholder:text-sm placeholder:text-right"
-                      placeholder="مثال   ۰۹۱۲۳۴۵۶۷۸۹"
-                      // value=""
-                    />
-                  </div>
-                  <div className="mt-10">
-                    <button
-                      className="px-4 py-3 text-white bg-blue-500 rounded-lg w-full shadow-xl hover:bg-blue-600 transition duration-300"
-                      tabIndex="0"
-                      type="submit"
-                    >
-                      ورود
-                      <span className="MuiTouchRipple-root muirtl-w0pj6f"></span>
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+          {renderSteps()}
         </div>
       </div>
       <div className="bg-blue-600 rounded-r-3xl lg:w-[70%]">
@@ -201,7 +206,7 @@ function page() {
             <a href="/learning-path">
               <button
                 className="flex items-center gap-x-2 mt-4 rounded-3xl px-5 py-3 text-white border-2 border-white border-opacity-50 text-sm muirtl-ww0lte"
-                tabindex="0"
+                tabIndex="0"
                 type="button"
                 style={{
                   background:
@@ -221,8 +226,8 @@ function page() {
                     ></path>
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-width="1.5"
+                      strokeLinecap="round"
+                      strokwidth="1.5"
                       d="M9 9h3m-3 3h5"
                     ></path>
                   </svg>
