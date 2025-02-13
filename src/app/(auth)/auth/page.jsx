@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //? import mui
 import Box from "@mui/material/Box";
@@ -13,13 +13,15 @@ import SendCode from "@/app/(auth)/auth/SendCode";
 import CheckCode from "@/app/(auth)/auth/CheckCode";
 
 const steps = ["احراز هویت", "تکمیل اطلاعات", "ثبت سفارش"];
+const RESEND_TIME = 90;
 
 function page() {
   const [data, setData] = useState({
     phoneNumber: "",
-    code: "",
   });
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
+  const [otp, setOtp] = useState("");
+  const [time, setTime] = useState(RESEND_TIME);
 
   const dataHandler = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
@@ -28,6 +30,13 @@ function page() {
   const setStepHandler = (status) => {
     setStep(status);
   };
+
+  useEffect(() => {
+    const timer = time > 0 && setInterval(() => setTime((t) => t - 1), 1000);
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [time]);
   console.log(data);
 
   const renderSteps = () => {
@@ -46,6 +55,12 @@ function page() {
             data={data}
             dataHandler={dataHandler}
             setStepHandler={setStepHandler}
+            time={time}
+            setOtp={setOtp}
+            value={otp}
+            // loading={checkOtpPending}
+            // sendOtpHandler={sendOtpHandler}
+            // checkOtpHandler={checkOtpHandler}
           />
         );
       default:
