@@ -1,6 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+
+//? import services
+import { checkOtp, createUser } from "@/services/usersServices";
 
 //? import mui
 import Box from "@mui/material/Box";
@@ -16,15 +21,29 @@ const steps = ["احراز هویت", "تکمیل اطلاعات", "ثبت سف�
 const RESEND_TIME = 90;
 
 function page() {
-  const [data, setData] = useState({
-    phoneNumber: "",
-  });
-  const [step, setStep] = useState(1);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [step, setStep] = useState(0);
   const [otp, setOtp] = useState("");
   const [time, setTime] = useState(RESEND_TIME);
 
-  const dataHandler = (event) => {
-    setData({ ...data, [event.target.name]: event.target.value });
+  // create user mutation
+  const { isPending: getOtpIsPending, mutateAsync: mutateGetOtp } = useMutation(
+    {
+      mutationFn: createUser,
+    }
+  );
+
+  // check otp mutation
+  const {
+    isPending: checkOtpIsPending,
+    data,
+    mutateAsync: mutateCheckOtp,
+  } = useMutation({
+    mutationFn: checkOtp,
+  });
+
+  const phoneNumberHandler = (event) => {
+    setPhoneNumber(event.target.value);
   };
 
   const setStepHandler = (status) => {
@@ -37,7 +56,20 @@ function page() {
       if (timer) clearInterval(timer);
     };
   }, [time]);
-  console.log(data);
+
+  //send phoneNumber to db
+  const getOtpSubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      const { message } = await mutateGetOtp({ phoneNumber });
+      toast.success(message);
+      setTime(RESEND_TIME);
+      setStep(1);
+      setOtp("");
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
 
   const renderSteps = () => {
     switch (step) {
@@ -45,15 +77,15 @@ function page() {
         return (
           <SendCode
             data={data}
-            dataHandler={dataHandler}
-            setStepHandler={setStepHandler}
+            phoneNumberHandler={phoneNumberHandler}
+            submitHandler={getOtpSubmitHandler}
           />
         );
       case 1:
         return (
           <CheckCode
             data={data}
-            dataHandler={dataHandler}
+            phoneNumber={phoneNumber}
             setStepHandler={setStepHandler}
             time={time}
             setOtp={setOtp}

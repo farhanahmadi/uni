@@ -7,7 +7,7 @@ import { LiaEdit } from "react-icons/lia";
 import { IoRefreshSharp } from "react-icons/io5";
 
 function CheckCode({
-  data,
+  phoneNumber,
   dataHandler,
   setStepHandler,
   value,
@@ -23,8 +23,7 @@ function CheckCode({
         </div>
       </div>
       <div className="text-gray-500 mb-4 text-xs flex items-center gap-x-1">
-        کد تایید ارسال شده به شماره {digitsEnToFa(data?.phoneNumber)} را وارد
-        کنید
+        کد تایید ارسال شده به شماره {digitsEnToFa(phoneNumber)} را وارد کنید
         <button onClick={() => setStepHandler(0)}>
           <LiaEdit className="w-5 h-5 text-blue-500" />
         </button>
