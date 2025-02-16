@@ -21,7 +21,7 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 function page() {
   return (
     <div>
-      <div className="container md:max-w-screen-xl mx-auto mt-12 md:mt-16">
+      <div className="container md:max-w-screen-xl lg:max-w-screen-2xl mx-auto mt-12 md:mt-16">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="800"
