@@ -8,8 +8,7 @@ import { IoRefreshSharp } from "react-icons/io5";
 
 function CheckCode({
   phoneNumber,
-  dataHandler,
-  setStepHandler,
+  submitHandler,
   value,
   loading,
   time,
@@ -30,7 +29,7 @@ function CheckCode({
       </div>
       <div className="py-4">
         <div style={{ opacity: "1", transform: "none" }}>
-          <form className="flex flex-col">
+          <form onSubmit={submitHandler} className="flex flex-col">
             <div className="textField" dir="ltr">
               <OTPInput
                 value={value}

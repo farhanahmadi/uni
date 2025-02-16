@@ -71,6 +71,17 @@ function page() {
     }
   };
 
+  //check otp code
+  const checkOtpSubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      const { message } = await mutateCheckOtp({ phoneNumber, otp });
+      toast.success(message);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   const renderSteps = () => {
     switch (step) {
       case 0:
@@ -86,7 +97,7 @@ function page() {
           <CheckCode
             data={data}
             phoneNumber={phoneNumber}
-            setStepHandler={setStepHandler}
+            submitHandler={checkOtpSubmitHandler}
             time={time}
             setOtp={setOtp}
             value={otp}

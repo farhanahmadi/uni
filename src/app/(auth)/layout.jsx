@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
+import toast, { Toaster } from "react-hot-toast";
 
 //?import font
 import estedadFont from "@/constants/localFonts";
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
         className={`${estedadFont.variable} font-sans`}
       >
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
