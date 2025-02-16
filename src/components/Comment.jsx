@@ -20,7 +20,7 @@ function Comment() {
         <h1 className="text-base font-extrabold text-[#2A2D53] mb-2">
           دوره بسیار عالی و کابردی بود
         </h1>
-        <p class="text-sm leading-7 text-gray-600 lg:leading-7 mb-4">
+        <p className="text-sm leading-7 text-gray-600 lg:leading-7 mb-4">
           سلام ممنونم بابت دوره خوبت مفید و مختصر توضیح دادی کاربردی هستش
         </p>
         <div className="flex flex-col gap-y-1 mb-2">

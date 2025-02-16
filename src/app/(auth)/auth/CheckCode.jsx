@@ -6,6 +6,9 @@ import OTPInput from "react-otp-input";
 import { LiaEdit } from "react-icons/lia";
 import { IoRefreshSharp } from "react-icons/io5";
 
+//? import components
+import Loading from "@/common/Loading";
+
 function CheckCode({
   phoneNumber,
   submitHandler,
@@ -13,6 +16,7 @@ function CheckCode({
   loading,
   time,
   setOtp,
+  isPending,
 }) {
   return (
     <div className="bg-white rounded-2xl p-8 w-full">
@@ -47,15 +51,27 @@ function CheckCode({
               />
             </div>
             <div className="mt-10">
-              <button
-                className="px-4 py-3 text-white bg-blue-500 rounded-lg w-full shadow-xl hover:bg-blue-600 transition duration-300 font-bold text-sm disabled:bg-gray-500"
-                tabIndex="0"
-                type="submit"
-                disabled={!(value.length === 5)}
-              >
-                تایید و ادامه
-                <span className="MuiTouchRipple-root muirtl-w0pj6f"></span>
-              </button>
+              {isPending ? (
+                <button
+                  className="px-4 py-3 text-white bg-blue-500 rounded-lg w-full shadow-xl hover:bg-blue-600 transition duration-300 font-bold disabled:bg-gray-500"
+                  tabIndex="0"
+                  type="submit"
+                  disabled={true}
+                >
+                  <Loading white={true} />
+                  <span className="MuiTouchRipple-root muirtl-w0pj6f"></span>
+                </button>
+              ) : (
+                <button
+                  className="px-4 py-3 text-white bg-blue-500 rounded-lg w-full shadow-xl hover:bg-blue-600 transition duration-300 font-bold disabled:bg-gray-500"
+                  tabIndex="0"
+                  type="submit"
+                  disabled={!(value.length === 5)}
+                >
+                  تایید و ادامه
+                  <span className="MuiTouchRipple-root muirtl-w0pj6f"></span>
+                </button>
+              )}
             </div>
             <div className="mt-5">
               <button

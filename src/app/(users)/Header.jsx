@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 
@@ -8,9 +10,17 @@ import { CiShoppingBasket } from "react-icons/ci";
 //? import library
 import Badge from "@mui/material/Badge";
 
+//? import hooks
+import { useGetUser } from "@/hooks/useGetUser";
+
 function Header() {
+  const { data: user } = useGetUser();
   return (
-    <div className="backdrop-blur-sm relative z-20 bg-gray-700 bg-opacity-5">
+    <div
+      className={`${
+        !user && "blur-md"
+      } backdrop-blur-sm relative z-20 bg-gray-700 bg-opacity-5 transition duration-700`}
+    >
       <div className="container mx-auto p-4 rounded-full">
         <div className="flex flex-row-reverse items-center justify-between">
           <div className="basis-1/4 flex justify-end">
@@ -29,9 +39,15 @@ function Header() {
             />
           </form>
           <div className="basis-1/4 flex items-center justify-evenly">
-            <button className="px-4 py-2 rounded-full bg-green-600 text-gray-100">
-              ثبت نام / ورود
-            </button>
+            {user ? (
+              <button className="px-4 py-2 text-sm rounded-full bg-blue-500 font-bold text-gray-100">
+                کاربر: {user?.phoneNumber}
+              </button>
+            ) : (
+              <button className="px-4 py-2 rounded-full text-sm bg-blue-500 font-bold text-gray-100">
+                ثبت نام / ورود
+              </button>
+            )}
             <button type="button">
               <Badge badgeContent={1} color="error">
                 <CiShoppingBasket className="w-12 h-12 text-gray-500" />

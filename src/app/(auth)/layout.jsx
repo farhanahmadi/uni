@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 //?import font
 import estedadFont from "@/constants/localFonts";
 
-//import react query provider
+//? import react query provider
 import Providers from "@/app/Providers";
 
 export const metadata = {

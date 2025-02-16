@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 //? import services
 import { checkOtp, createUser } from "@/services/usersServices";
@@ -21,6 +22,8 @@ const steps = ["احراز هویت", "تکمیل اطلاعات", "ثبت سف�
 const RESEND_TIME = 90;
 
 function page() {
+  const router = useRouter();
+
   const [phoneNumber, setPhoneNumber] = useState("");
   const [step, setStep] = useState(0);
   const [otp, setOtp] = useState("");
@@ -77,6 +80,7 @@ function page() {
     try {
       const { message } = await mutateCheckOtp({ phoneNumber, otp });
       toast.success(message);
+      router.push("/");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -90,6 +94,7 @@ function page() {
             data={data}
             phoneNumberHandler={phoneNumberHandler}
             submitHandler={getOtpSubmitHandler}
+            isPending={getOtpIsPending}
           />
         );
       case 1:
@@ -101,9 +106,7 @@ function page() {
             time={time}
             setOtp={setOtp}
             value={otp}
-            // loading={checkOtpPending}
-            // sendOtpHandler={sendOtpHandler}
-            // checkOtpHandler={checkOtpHandler}
+            isPending={checkOtpIsPending}
           />
         );
       default:

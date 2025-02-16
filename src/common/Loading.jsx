@@ -1,6 +1,6 @@
 import { ThreeDots } from "react-loader-spinner";
 
-function Loading({ width = "75", heigh = "40", white = false }) {
+function Loading({ width = "75", heigh = "24", white = false }) {
   return (
     <ThreeDots
       height={heigh}

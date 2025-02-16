@@ -9,3 +9,6 @@ export function createUser(data) {
 export function checkOtp(data) {
   return http.post("/users/checkOtp", data).then(({ data }) => data);
 }
+export function getUserProfile() {
+  return http.get("/users/getUser").then(({ data }) => data.findUser);
+}

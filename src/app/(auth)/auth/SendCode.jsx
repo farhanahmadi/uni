@@ -1,6 +1,14 @@
 import React from "react";
 
-function SendCode({ phoneNumber, phoneNumberHandler, submitHandler }) {
+//? import components
+import Loading from "@/common/Loading";
+
+function SendCode({
+  phoneNumber,
+  phoneNumberHandler,
+  submitHandler,
+  isPending,
+}) {
   return (
     <div className="bg-white rounded-2xl p-8 w-full">
       <div className="flex items-center mt-2 mb-6">
@@ -29,14 +37,26 @@ function SendCode({ phoneNumber, phoneNumberHandler, submitHandler }) {
               />
             </div>
             <div className="mt-10">
-              <button
-                className="px-4 py-3 text-white bg-blue-500 rounded-lg w-full shadow-xl hover:bg-blue-600 transition duration-300"
-                tabIndex="0"
-                type="submit"
-              >
-                ورود
-                <span className="MuiTouchRipple-root muirtl-w0pj6f"></span>
-              </button>
+              {isPending ? (
+                <button
+                  className="px-4 py-3 text-white bg-blue-500 rounded-lg w-full shadow-xl hover:bg-blue-600 transition duration-300"
+                  tabIndex="0"
+                  type="button"
+                  disabled
+                >
+                  <Loading white={true} />
+                  <span className="MuiTouchRipple-root muirtl-w0pj6f"></span>
+                </button>
+              ) : (
+                <button
+                  className="px-4 py-3 text-white bg-blue-500 rounded-lg w-full shadow-xl hover:bg-blue-600 transition duration-300"
+                  tabIndex="0"
+                  type="submit"
+                >
+                  ورود
+                  <span className="MuiTouchRipple-root muirtl-w0pj6f"></span>
+                </button>
+              )}
             </div>
           </form>
         </div>
