@@ -14,11 +14,12 @@ import Badge from "@mui/material/Badge";
 import { useGetUser } from "@/hooks/useGetUser";
 
 function Header() {
-  const { data: user } = useGetUser();
+  const { data: user, isPending } = useGetUser();
+  console.log(user);
   return (
     <div
       className={`${
-        !user && "blur-md"
+        isPending && "blur-md"
       } backdrop-blur-sm relative z-20 bg-gray-700 bg-opacity-5 transition duration-700`}
     >
       <div className="container mx-auto p-4 rounded-full">
