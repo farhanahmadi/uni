@@ -2,11 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-
+import toast from "react-hot-toast";
 //? import icons
 import { CiSearch } from "react-icons/ci";
 import { CiShoppingBasket } from "react-icons/ci";
-
 //? import library
 import Badge from "@mui/material/Badge";
 
@@ -15,7 +14,6 @@ import { useGetUser } from "@/hooks/useGetUser";
 
 function Header() {
   const { data: user, isPending } = useGetUser();
-  console.log(user);
   return (
     <div
       className={`${
@@ -45,15 +43,30 @@ function Header() {
                 کاربر: {user?.phoneNumber}
               </button>
             ) : (
-              <button className="px-4 py-2 rounded-full text-sm bg-blue-500 font-bold text-gray-100">
-                ثبت نام / ورود
-              </button>
+              <Link href="/auth">
+                <button className="px-4 py-2 rounded-full text-sm bg-blue-500 font-bold text-gray-100">
+                  ثبت نام / ورود
+                </button>
+              </Link>
             )}
-            <button type="button">
-              <Badge badgeContent={1} color="error">
+            {!user ? (
+              <button
+                onClick={() => toast.error("ابتدا وارد حساب خود شوید")}
+                type="button"
+              >
+                {/* <Badge badgeContent={1} color="error"> */}
                 <CiShoppingBasket className="w-12 h-12 text-gray-500" />
-              </Badge>
-            </button>
+                {/* </Badge> */}
+              </button>
+            ) : (
+              <Link href="/cart">
+                <button type="button">
+                  <Badge badgeContent={1} color="error">
+                    <CiShoppingBasket className="w-12 h-12 text-gray-500" />
+                  </Badge>
+                </button>
+              </Link>
+            )}
           </div>
         </div>
         {/* <div>secound navbar</div> */}

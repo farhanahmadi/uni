@@ -6,4 +6,5 @@ export const useGetUser = () =>
     queryKey: ["get-user"],
     queryFn: getUserProfile,
     retry: false,
+    refetchOnWindowFocus: false,
   });

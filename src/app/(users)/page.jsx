@@ -143,7 +143,7 @@ function page() {
           </div>
         </div>
         {/* chips section */}
-        <div className="my-16 sm:my-28 grid grid-cols-10 gap-4 md:gap-8 container md:max-w-screen-xl">
+        <div className="my-16 sm:my-28 grid grid-cols-10 gap-4 md:gap-8 container md:max-w-screen-xl mx-auto">
           <Chips
             icon={<PiCoinsLight className="icon text-white" />}
             text="تضمین بازگشت وجه"
