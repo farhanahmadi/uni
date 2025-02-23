@@ -17,6 +17,9 @@ const userSchema = new mongoose.Schema({
   cart: {
     type: Array,
   },
+  purchased: {
+    type: Array,
+  },
   otp: {
     type: Object,
   },
