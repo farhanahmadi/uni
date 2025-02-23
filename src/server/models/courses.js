@@ -20,20 +20,14 @@ const Coursesschema = new mongoose.Schema({
     require: true,
   },
   status: {
-    type: Number,
-  },
-  like: {
-    type: Number,
-  },
-  users: {
-    type: Number,
+    type: String,
   },
   price: {
-    type: Number,
+    type: String,
     require: true,
   },
   discount: {
-    type: Number,
+    type: String,
   },
 });
 

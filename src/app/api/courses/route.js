@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
+import courses from "@/server/models/courses";
 
 export const POST = async (req) => {
   const formData = await req.formData();
@@ -31,8 +32,17 @@ export const POST = async (req) => {
   try {
     // Save the file to the specified path
     await writeFile(filePath, buffer);
+    await courses.create({
+      id: Math.floor(new Date().valueOf() * Math.random()),
+      img: "public/assets/img" + filename,
+      name: formData.get("name"),
+      timeLength: formData.get("timeLength"),
+      status: formData.get("status"),
+      price: formData.get("price"),
+      discount: formData.get("discount"),
+    });
     return NextResponse.json(
-      { message: "File uploaded successfully", filename },
+      { message: "course uploaded successfully", filename },
       { status: 201 }
     );
   } catch (error) {
