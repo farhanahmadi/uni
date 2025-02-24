@@ -1,83 +1,157 @@
+"use client";
+
 import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 //? import icons
 import { CiTrash } from "react-icons/ci";
 
+//? import hooks
+import { useGetUser } from "@/hooks/useGetUser";
+
+//? import service
+import { submitOrder } from "@/services/usersServices";
+
+//? import components
+import Loading from "@/common/Loading";
+
 function page() {
+  const queryClient = useQueryClient();
+
+  const { data: user, isPending } = useGetUser();
+
+  const {
+    data: orderpdateData,
+    isPending: orderpdatePending,
+    mutateAsync: mutateSubmitOrder,
+  } = useMutation({ mutationFn: submitOrder });
+
+  function calculateTotalPrice(items) {
+    return items.reduce((total, item) => {
+      const price = Number(item?.price); // تبدیل به عدد
+      if (!isNaN(price)) {
+        // بررسی معتبر بودن عدد
+        return total + price;
+      }
+      return total;
+    }, 0);
+  }
+
+  function calculateTotalPriceWithDiscount(items) {
+    return items.reduce((total, item) => {
+      const price = Number(
+        Number(item?.price) - Number(item?.price) * Number(`.${item?.discount}`)
+      ); // تبدیل به عدد
+      if (!isNaN(price)) {
+        // بررسی معتبر بودن عدد
+        return total + price;
+      }
+      return total;
+    }, 0);
+  }
+
+  const cartHandler = async () => {
+    if (user) {
+      try {
+        const { message } = await mutateSubmitOrder(user?.purchased);
+        queryClient.invalidateQueries({ queryKey: ["get-user"] });
+        toast.success(message);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
+  };
+  if (isPending) {
+    return (
+      <div className="h-[calc(100vh-630px)] w-full flex items-center justify-center">
+        <Loading white={false} size={50} />
+      </div>
+    );
+  }
   return (
     <div className="container md:max-w-screen-xl lg:max-w-screen-2xl mx-auto mt-12 md:mt-16 grid grid-cols-12 gap-x-4">
-      <div className="col-span-8">
-        <div className="bg-white p-4 shadow shadow-gray-200 rounded-xl col-span-12 sm:col-span-8 flex items-center justify-between">
-          <div className="relative w-16 h-16 lg:w-28 lg:h-28 ml-2 sm:ml-3 flex-shrink-0">
-            <img
-              alt="دوره جامع و پیشرفته جاوااسکریپت"
-              src="/assets/img/javascript.svg"
-              decoding="async"
-              data-nimg="fill"
-              className="object-cover object-center rounded-xl"
-              loading="lazy"
-              style={{
-                position: "absolute",
-                height: "100%",
-                width: "100%",
-                inset: "0px",
-                color: "transparent",
-              }}
-            />
-          </div>
-          <div className="flex-1">
-            <a
-              className="font-black text-gray-700 text-sm md:text-2xl hover:text-blue-600 transition-all duration-200 mb-3 block"
-              href="/courses/advanced-javascript"
-            >
-              دوره جامع و پیشرفته جاوااسکریپت
-            </a>
-            <div className="flex items-center">
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                stroke-width="0"
-                viewBox="0 0 24 24"
-                className="w-4 h-4 text-gray-600"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
+      <div className="lg:col-span-9 col-span-12 flex flex-col gap-y-2">
+        {user?.purchased.map((item) => (
+          <div
+            key={item?.id}
+            className="bg-white p-4 shadow shadow-gray-200 rounded-xl col-span-12 sm:col-span-8 flex items-center justify-between"
+          >
+            <div className="relative w-16 h-16 lg:w-28 lg:h-28 ml-2 sm:ml-3 flex-shrink-0">
+              <img
+                alt={item?.name}
+                src={item?.img}
+                decoding="async"
+                data-nimg="fill"
+                className="object-cover object-center rounded-xl"
+                loading="lazy"
+                style={{
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
+                  inset: "0px",
+                  color: "transparent",
+                }}
+              />
+            </div>
+            <div className="flex-1">
+              <a
+                className="font-black text-gray-700 text-sm md:text-2xl hover:text-blue-600 transition-all duration-200 mb-3 block"
+                href="/courses/advanced-javascript"
               >
-                <g>
-                  <path fill="none" d="M0 0h24v24H0z"></path>
-                  <path d="M12 14v2a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8zm0-1c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm6 10.5l-2.939 1.545.561-3.272-2.377-2.318 3.286-.478L18 14l1.47 2.977 3.285.478-2.377 2.318.56 3.272L18 21.5z"></path>
-                </g>
-              </svg>
-              <span className="text-[10px] font-bold text-gray-600">
-                مدرس دوره : صاحب محمدی
-              </span>
-            </div>
-          </div>
-          <div className="flex-1">
-            <div className="max-w-[200px]">
-              <div className="flex items-center gap-x-4">
-                <span className="text-gray-400 rounded-full text-base line-through">
-                  ۱,۹۹۸,۰۰۰
-                </span>
-                <span className="py-1 px-2 bg-red-500 text-white rounded-full text-xs">
-                  ۴۰%
-                </span>
-              </div>
-              <div className="mt-2">
-                <span className="text-blue-500 text-2xl font-extrabold">
-                  ۱,۱۹۸,۰۰۰ تومان
+                {item?.name}
+              </a>
+              <div className="flex items-center">
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 text-gray-600"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M12 14v2a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8zm0-1c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm6 10.5l-2.939 1.545.561-3.272-2.377-2.318 3.286-.478L18 14l1.47 2.977 3.285.478-2.377 2.318.56 3.272L18 21.5z"></path>
+                  </g>
+                </svg>
+                <span className="text-[10px] font-bold text-gray-600">
+                  مدرس دوره : صاحب محمدی
                 </span>
               </div>
             </div>
+            <div className="flex-1">
+              <div className="max-w-[200px]">
+                <div className="flex items-center gap-x-4">
+                  <span className="text-gray-400 rounded-full text-base line-through">
+                    {Number(item?.price).toLocaleString("fa")}
+                  </span>
+                  <span className="py-1 px-2 bg-red-500 text-white rounded-full text-xs">
+                    {Number(item?.discount).toLocaleString("fa")}%
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <span className="text-blue-500 text-xl font-extrabold">
+                    {Number(
+                      Number(item?.price) -
+                        Number(item?.price) * Number(`.${item?.discount}`)
+                    ).toLocaleString("fa")}{" "}
+                    تومان
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button className="border border-gray-200/70 p-1 rounded-xl">
+                <CiTrash className="w-6 h-6 text-red-500" />
+              </button>
+            </div>
           </div>
-          <div>
-            <button className="border border-gray-200/70 p-1 rounded-xl">
-              <CiTrash className="w-6 h-6 text-red-500" />
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
-      <div className="col-span-12 lg:col-span-4">
+      <div className="col-span-12 lg:col-span-3">
         <div className="bg-white rounded-xl p-3 lg:p-6">
           <div className="flex items-center gap-x-2 font-black text-gray-800 border-b border-b-gray-200/70 pb-3 mb-4">
             <svg
@@ -130,17 +204,30 @@ function page() {
           <div className="border-b border-b-gray-200/70 pb-1 mb-2">
             <div className="flex items-center justify-between mb-2">
               <span className="text-gray-700 font-bold">جمع کل</span>
-              <span className="text-gray-600 font-bold">۱,۹۹۸,۰۰۰</span>
+              <span className="text-gray-600 font-bold">
+                {!isPending &&
+                  calculateTotalPrice(user?.purchased).toLocaleString("fa")}
+              </span>
             </div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-gray-700 font-bold">تخفیف</span>
-              <span className="text-rose-500 font-bold">۸۰۰,۰۰۰ -</span>
+              <span className="text-rose-500 font-bold">
+                {!isPending &&
+                  Number(
+                    calculateTotalPrice(user?.purchased) -
+                      calculateTotalPriceWithDiscount(user?.purchased)
+                  ).toLocaleString("fa")}
+                -
+              </span>
             </div>
           </div>
           <div className="flex items-center justify-between mb-6">
             <span className="text-gray-700 font-bold">ملبغ قابل پرداخت</span>
             <span className="text-blue-500 font-bold text-xl flex items-center">
-              ۱,۱۹۸,۰۰۰
+              {!isPending &&
+                calculateTotalPriceWithDiscount(user?.purchased).toLocaleString(
+                  "fa"
+                )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 data-name="Layer 2"
@@ -161,6 +248,7 @@ function page() {
             className="rounded-lg px-2 py-4 bg-blue-500 text-white font-bold w-full shadow-lg shadow-blue-300"
             tabindex="0"
             type="button"
+            onClick={cartHandler}
           >
             پرداخت سفارش
             <span className="MuiTouchRipple-root muirtl-w0pj6f"></span>

@@ -12,3 +12,9 @@ export function checkOtp(data) {
 export function getUserProfile() {
   return http.get("/users/getUser").then(({ data }) => data.findUser);
 }
+export function updateCart(data) {
+  return http.post("/users/cart", data).then(({ data }) => data);
+}
+export function submitOrder(data) {
+  return http.post("/users/cart/submit", data).then(({ data }) => data);
+}

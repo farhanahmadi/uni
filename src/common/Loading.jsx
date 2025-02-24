@@ -1,17 +1,10 @@
-import { ThreeDots } from "react-loader-spinner";
+import PulseLoader from "react-spinners/PulseLoader";
 
-function Loading({ width = "75", heigh = "24", white = false }) {
+function Loading({ size=10, white = false }) {
   return (
-    <ThreeDots
-      height={heigh}
-      width={width}
-      radius="9"
-      color={white ? "#fff" : "var(--cyan-green)"}
-      ariaLabel="three-dots-loading"
-      wrapperStyle={{
-        display: "flex",
-        justifyContent: "center",
-      }}
+    <PulseLoader
+      size={size}
+      color={white ? "#fff" : "#3b82f6 "}
       visible={true}
     />
   );
