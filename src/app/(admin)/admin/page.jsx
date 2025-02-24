@@ -1,6 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import {
+  addCommas,
+  digitsEnToFa,
+  numberToWords,
+} from "@persian-tools/persian-tools";
 
 //? import service
 import { createCourse } from "@/services/couesesServices";
@@ -28,8 +33,15 @@ function page() {
   };
 
   const dataHandler = (event) => {
-    setCourseData({ ...courseData, [event.target.name]: event.target.value });
-    console.log(courseData);
+    const { name, value } = event.target;
+    const persianNumber = ["price", "timeLength"];
+    if (persianNumber.includes(name)) {
+      return setCourseData({
+        ...courseData,
+        [name]: digitsEnToFa(value),
+      });
+    }
+    setCourseData({ ...courseData, [name]: value });
   };
 
   const posterHandler = async (event) => {
@@ -57,7 +69,7 @@ function page() {
         {coursesFormData.map((input) => {
           if (input.type === "select") {
             return (
-              <label>
+              <label key={input.id}>
                 <span className="text-blue-500 text-xl font-bold mb-2">
                   {input.label}
                 </span>
@@ -81,6 +93,7 @@ function page() {
           }
           return (
             <TextFeild
+              key={input.id}
               label={input.label}
               name={input.name}
               type={input.type}

@@ -1,7 +1,6 @@
 import React from "react";
-import { digitsEnToFa } from "@persian-tools/persian-tools";
 
-function TextField({ label, name, type, placeHolder, value, handler }) {
+function TextField({ label, name, type, placeHolder, value, price, handler }) {
   return (
     <div>
       <label htmlFor={name} className="flex flex-col items-start">
@@ -9,7 +8,7 @@ function TextField({ label, name, type, placeHolder, value, handler }) {
         <input
           id={name}
           name={name}
-          value={name === "price" ? digitsEnToFa(Number(value)) : value}
+          value={value}
           placeholder={placeHolder}
           type={type}
           className="form-input w-full rounded-lg bg-gray-50 focus:outline-none p-2 shadow shadow-gray-100 border-0 focus:border focus:border-blue-500"
