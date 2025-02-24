@@ -12,7 +12,7 @@ import "swiper/css";
 //? import components
 import Card from "@/components/Card";
 
-function CoursesSlider() {
+function CoursesSlider({ data }) {
   return (
     <div>
       <Swiper
@@ -23,24 +23,11 @@ function CoursesSlider() {
         freeMode={true}
         modules={[Pagination, Navigation, FreeMode]}
       >
-        <SwiperSlide className="max-w-sm">
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide className="max-w-sm">
-          <Card />
-        </SwiperSlide>
+        {data.map((card) => (
+          <SwiperSlide key={card.id} className="max-w-sm">
+            <Card data={card} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
 import courses from "@/server/models/courses";
+import dbConnect from "@/server/utils/dbConnect";
 
 export const POST = async (req) => {
   const formData = await req.formData();
@@ -14,7 +15,7 @@ export const POST = async (req) => {
   }
 
   // Validate file type (optional)
-  const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+  const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/svg"];
   if (!allowedTypes.includes(file.type)) {
     return NextResponse.json(
       { error: "Invalid file type. Only JPEG, PNG, and GIF are allowed." },
@@ -27,7 +28,7 @@ export const POST = async (req) => {
 
   // Generate a unique filename
   const filename = `${Date.now()}_${file.name.replaceAll(" ", "_")}`;
-  const filePath = path.join(process.cwd(), "public/assets/img", filename);
+  const filePath = path.join(process.cwd(), "/assets/img/", filename);
 
   try {
     // Save the file to the specified path
@@ -53,3 +54,19 @@ export const POST = async (req) => {
     );
   }
 };
+
+export async function GET() {
+  try {
+    await dbConnect();
+    const coursesList = await getAllCourses();
+    return NextResponse.json({ coursesList });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+}
+
+// get all courses list
+export async function getAllCourses() {
+  const coursesList = await courses.find({});
+  return coursesList;
+}

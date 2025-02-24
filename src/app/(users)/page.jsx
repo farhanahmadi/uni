@@ -18,7 +18,11 @@ import { VscDebugConsole } from "react-icons/vsc";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 
-function page() {
+//? import service
+import { getCourses } from "@/services/couesesServices";
+
+async function page() {
+  const data = await getCourses();
   return (
     <div>
       <div className="container md:max-w-screen-xl lg:max-w-screen-2xl mx-auto mt-12 md:mt-16">
@@ -172,7 +176,7 @@ function page() {
         </div>
         <div className="mb-20">
           {/* courses section */}
-          <Courses />
+          <Courses data={data} />
         </div>
         <div>
           {/* comments section */}

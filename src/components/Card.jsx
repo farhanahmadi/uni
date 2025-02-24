@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
-
+import {
+  addCommas,
+  digitsEnToFa,
+  numberToWords,
+} from "@persian-tools/persian-tools";
 //? import icons
 import { IoMdHeartEmpty } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
@@ -8,7 +12,7 @@ import { CiClock1 } from "react-icons/ci";
 import { MdOutlineKeyboardVoice } from "react-icons/md";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
-function Card() {
+function Card({ data }) {
   return (
     <div className="mt-12 max-w-xs">
       <div className="bg-white shadow-sm shadow-secondary-100/40 rounded-xl relative p-3 flex flex-col h-full hover:shadow-lg hover:shadow-secondary-100/40 transition-all duration-300 ease-in-out">
@@ -17,8 +21,8 @@ function Card() {
             <Link href="/">
               <div className="aspect-w-13 aspect-h-9">
                 <img
-                  alt="دوره شروع و کسب درآمد از برنامه نویسی"
-                  src="/assets/img/typescript.svg"
+                  alt={data.name}
+                  src={data.img}
                   decoding="async"
                   data-nimg="fill"
                   className="object-cover object-center h-full w-full rounded-xl"
@@ -51,17 +55,17 @@ function Card() {
         <div>
           <Link href="/">
             <h1 className="text-xl text-blue-900 hover:text-blue-600 transition font-extrabold mb-3">
-              دوره پیشرفته و پروژه محور تایپ اسکریپت
+              {data.name}
             </h1>
           </Link>
           <div className="flex gap-x-6 items-center mb-3">
             <div className="flex items-center gap-x-1 text-gray-500 text-xs">
               <CiClock1 className="w-5 h-5" />
-              <p>۰۸:۲۵:۰۰</p>
+              <p>{data.timeLength}</p>
             </div>
             <div className="flex items-center gap-x-1 text-green-500 text-xs">
               <MdOutlineKeyboardVoice className="w-5 h-5" />
-              <p>تکمیل شده</p>
+              <p>{data.status}</p>
             </div>
           </div>
           <div className="text-blue-500 cursor-pointer hover:text-blue-700 transition-all duration-300">
@@ -83,15 +87,18 @@ function Card() {
             <div>
               <div className="flex items-center gap-x-2 mb-1">
                 <span className="text-gray-400 text-sm line-through">
-                  ۱,۷۹۸,۰۰۰
+                  {digitsEnToFa(data.price)}
                 </span>
                 <span className="bg-rose-500 rounded-full py-0.5 px-2 text-white text-xs flex justify-center items-center">
-                  ۴۰%
+                  {digitsEnToFa(data.discount)}%
                 </span>
               </div>
               <div className="flex items-center">
                 <span className="text-gray-700 font-extrabold ml-2 md:text-xl">
-                  ۱,۰۷۹,۰۰۰
+                  {digitsEnToFa(
+                    parseFloat(data.price) -
+                      parseFloat(data.price) * parseFloat(`.${data.discount}`)
+                  )}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

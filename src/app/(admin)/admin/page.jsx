@@ -1,11 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import {
-  addCommas,
-  digitsEnToFa,
-  numberToWords,
-} from "@persian-tools/persian-tools";
+import swal from "sweetalert";
 
 //? import service
 import { createCourse } from "@/services/couesesServices";
@@ -34,13 +30,7 @@ function page() {
 
   const dataHandler = (event) => {
     const { name, value } = event.target;
-    const persianNumber = ["price", "timeLength"];
-    if (persianNumber.includes(name)) {
-      return setCourseData({
-        ...courseData,
-        [name]: digitsEnToFa(value),
-      });
-    }
+
     setCourseData({ ...courseData, [name]: value });
   };
 
@@ -57,7 +47,12 @@ function page() {
     try {
       // Call the mutation function with the extracted data
       const { message } = await mutateCreateCourse(formData);
-      console.log(message); // Log success message
+      swal({
+        title: message,
+        text: "با موفقیت ثبت شد",
+        icon: "success",
+        button: "بازگشت",
+      });
     } catch (error) {
       console.error("Error in posterHandler:", error); // Log error
     }

@@ -3,7 +3,7 @@ import React from "react";
 //? import components
 import CoursesSlider from "@/components/CoursesSlider";
 
-function Courses() {
+function Courses({ data }) {
   return (
     <div className="bg-gray-200 rounded-md w-full p-4 grid grid-cols-12 ">
       <div className="col-span-4 flex flex-col items-start justify-end">
@@ -21,7 +21,7 @@ function Courses() {
         </button>
       </div>
       <div className="col-span-8">
-        <CoursesSlider />
+        <CoursesSlider data={data} />
       </div>
     </div>
   );

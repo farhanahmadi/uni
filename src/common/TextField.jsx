@@ -1,4 +1,11 @@
 import React from "react";
+import {
+  addCommas,
+  digitsEnToFa,
+  numberToWords,
+} from "@persian-tools/persian-tools";
+
+const persianNumber = ["price", "timeLength"];
 
 function TextField({ label, name, type, placeHolder, value, price, handler }) {
   return (
