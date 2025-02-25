@@ -18,3 +18,6 @@ export function updateCart(data) {
 export function submitOrder(data) {
   return http.post("/users/cart/submit", data).then(({ data }) => data);
 }
+export function deleteOrder(data) {
+  return http.put("/users/cart/delete", data).then(({ data }) => data);
+}

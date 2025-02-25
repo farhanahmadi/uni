@@ -107,7 +107,12 @@ function page() {
             <input type="file" name="file" id="file" onChange={fileHandler} />
           </label>
         </div>
-        <button type="submit">submit</button>
+        <button
+          type="submit"
+          className="rounded-3xl bg-blue-500 text-white max-w-xs mx-auto font-bold py-2 px-4 mt-4 hover:bg-blue-700 transition-all hover:scale-105 duration-500"
+        >
+          submit
+        </button>
       </form>
     </div>
   );

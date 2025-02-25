@@ -3,6 +3,7 @@
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 //? import icons
 import { CiTrash } from "react-icons/ci";
@@ -11,7 +12,7 @@ import { CiTrash } from "react-icons/ci";
 import { useGetUser } from "@/hooks/useGetUser";
 
 //? import service
-import { submitOrder } from "@/services/usersServices";
+import { submitOrder, deleteOrder } from "@/services/usersServices";
 
 //? import components
 import Loading from "@/common/Loading";
@@ -26,6 +27,12 @@ function page() {
     isPending: orderpdatePending,
     mutateAsync: mutateSubmitOrder,
   } = useMutation({ mutationFn: submitOrder });
+
+  const {
+    data: deleteOneOrder,
+    isPending: deleteOneOrderPending,
+    mutateAsync: mutateDeleteOrder,
+  } = useMutation({ mutationFn: deleteOrder });
 
   function calculateTotalPrice(items) {
     return items.reduce((total, item) => {
@@ -54,7 +61,10 @@ function page() {
   const cartHandler = async () => {
     if (user) {
       try {
-        const { message } = await mutateSubmitOrder(user?.purchased);
+        const { message } = await mutateSubmitOrder({
+          newOrder: user?.purchased,
+          oldOrder: user?.cart,
+        });
         queryClient.invalidateQueries({ queryKey: ["get-user"] });
         toast.success(message);
       } catch (error) {
@@ -62,6 +72,19 @@ function page() {
       }
     }
   };
+
+  const removeHandler = async (item) => {
+    if (user) {
+      try {
+        const { message } = await mutateDeleteOrder(item);
+        queryClient.invalidateQueries({ queryKey: ["get-user"] });
+        toast.success(message);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
   if (isPending) {
     return (
       <div className="h-[calc(100vh-630px)] w-full flex items-center justify-center">
@@ -69,6 +92,22 @@ function page() {
       </div>
     );
   }
+  if (user.purchased.length === 0) {
+    return (
+      <div className="h-[calc(100vh-630px)] w-full flex flex-col items-center justify-center">
+        <img src="/assets/img/emptyCart.svg" />
+        <h1 className="text-xl mt-2 font-medium text-gray-700">
+          سبد خرید شما خالی است !{" "}
+        </h1>
+        <Link href="/">
+          <button className="rounded-3xl bg-blue-500 text-white font-bold py-2 px-4 mt-4 hover:bg-blue-700 transition-all hover:scale-105 duration-500">
+            بازگشت به صفحه اصلی
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="container md:max-w-screen-xl lg:max-w-screen-2xl mx-auto mt-12 md:mt-16 grid grid-cols-12 gap-x-4">
       <div className="lg:col-span-9 col-span-12 flex flex-col gap-y-2">
@@ -144,7 +183,10 @@ function page() {
               </div>
             </div>
             <div>
-              <button className="border border-gray-200/70 p-1 rounded-xl">
+              <button
+                onClick={() => removeHandler(item)}
+                className="border border-gray-200/70 p-1 rounded-xl"
+              >
                 <CiTrash className="w-6 h-6 text-red-500" />
               </button>
             </div>

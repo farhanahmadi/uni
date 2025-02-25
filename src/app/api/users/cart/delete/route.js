@@ -3,7 +3,7 @@ import dbConnect from "@/server/utils/dbConnect";
 import Users from "@/server/models/user";
 import { cookies } from "next/headers";
 
-export async function POST(NextRequest) {
+export async function PUT(NextRequest) {
   const accessToken = cookies().get("accessToken")?.value;
 
   if (!accessToken) {
@@ -16,7 +16,7 @@ export async function POST(NextRequest) {
   try {
     const updatedUser = await Users.updateOne(
       { accessToken: accessToken },
-      { $set: { cart: [...user.oldOrder, ...user.newOrder], purchased: [] } }
+      { $pull: { purchased: { id: user.id } } }
     );
 
     if (updatedUser.matchedCount === 0) {
@@ -24,7 +24,7 @@ export async function POST(NextRequest) {
     }
 
     return NextResponse.json(
-      { message: "پرداخت با موفقیت انجام شد" },
+      { message: `${user?.name} با موفقیت حذف شد` },
       { status: 200 }
     );
   } catch (error) {

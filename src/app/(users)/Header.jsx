@@ -61,7 +61,7 @@ function Header() {
             ) : (
               <Link href="/cart">
                 <button type="button">
-                  <Badge badgeContent={user?.cart.length} color="error">
+                  <Badge badgeContent={user?.purchased.length} color="error">
                     <CiShoppingBasket className="w-12 h-12 text-gray-500" />
                   </Badge>
                 </button>
