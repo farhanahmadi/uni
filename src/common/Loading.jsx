@@ -5,7 +5,7 @@ function Loading({ size=10, white = false }) {
     <PulseLoader
       size={size}
       color={white ? "#fff" : "#3b82f6 "}
-      visible={true}
+      visible="true"
     />
   );
 }

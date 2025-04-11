@@ -90,7 +90,7 @@ async function page() {
                 srcSet="/assets/img/banner.webp 640w, /assets/img/banner.webp 750w, /assets/img/banner.webp 828w, /assets/img/banner.webp 1080w, /assets/img/banner.webp 1200w, /assets/img/banner.webp 1920w, /assets/img/banner.webp 2048w, /assets/img/banner.webp 3840w"
                 src="/assets/img/banner.webp 3480w"
                 decoding="async"
-                data-nimg="fill"
+                datanimg="fill"
                 className="object-cover object-center h-full w-full"
                 loading="eager"
                 style={{

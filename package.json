@@ -28,7 +28,8 @@
     "react-otp-input": "^3.1.1",
     "react-spinners": "^0.15.0",
     "sweetalert": "^2.1.2",
-    "swiper": "^11.2.1"
+    "swiper": "^11.2.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

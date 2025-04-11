@@ -3,10 +3,10 @@ import path from "path";
 import { writeFile } from "fs/promises";
 import courses from "@/server/models/courses";
 import dbConnect from "@/server/utils/dbConnect";
+import { v4 as uuidv4 } from "uuid";
 
 export const POST = async (req) => {
   const formData = await req.formData();
-  console.log(formData);
 
   // Get the file from the form data
   const file = formData.get("file");
@@ -31,10 +31,11 @@ export const POST = async (req) => {
   const filePath = path.join(process.cwd(), "/assets/img/", filename);
 
   try {
+    const id = uuidv4();
     // Save the file to the specified path
     await writeFile(filePath, buffer);
     await courses.create({
-      id: Math.floor(new Date().valueOf() * Math.random()),
+      id: id,
       img: "public/assets/img" + filename,
       name: formData.get("name"),
       timeLength: formData.get("timeLength"),

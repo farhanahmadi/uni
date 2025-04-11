@@ -20,7 +20,9 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning={true}
         className={`${estedadFont.variable} font-sans`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          </Providers>
         <Toaster />
       </body>
     </html>

@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import dbConnect from "@/server/utils/dbConnect";
 import Users from "@/server/models/user";
-import { OtpCreator, OtpExpiresIn } from "@/utils/OtpHandler";
+// import { OtpCreator, OtpExpiresIn } from "@/utils/OtpHandler";
 import { signJWT } from "@/utils/jwt";
 
 export const sessions = {};
@@ -30,20 +30,18 @@ export async function POST(NextRequest) {
   await dbConnect();
   const user = await NextRequest.json();
   const session = createSession(user.phoneNumber, "uniUser");
-  console.log(
-    typeof signJWT(
-      { phoneNumber: user.phoneNumber, sessionId: session.sessionId },
-      "5s"
-    )
-  );
+
+  const OtpCreator = Math.floor(Math.random() * 90000) + 10000;
+  const OtpExpiresIn = new Date(Date.now() + 2 * 60 * 1000);
+
   try {
     // create new user
     await Users.create({
       phoneNumber: user.phoneNumber,
       role: "User",
       otp: {
-        code: OtpCreator(),
-        expiresIn: OtpExpiresIn(),
+        code: OtpCreator,
+        expiresIn: OtpExpiresIn,
       },
       accessToken: signJWT(
         { phoneNumber: user.phoneNumber, sessionId: session.sessionId },
