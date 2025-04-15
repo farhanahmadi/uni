@@ -10,7 +10,7 @@ export function checkOtp(data) {
   return http.post("/users/checkOtp", data).then(({ data }) => data);
 }
 export function getUserProfile() {
-  return http.get("/users/getUser").then(({ data }) => data.findUser);
+  return http.get("/users/getUser").then(({ data }) => data.user);
 }
 export function updateCart(data) {
   return http.post("/users/cart", data).then(({ data }) => data);

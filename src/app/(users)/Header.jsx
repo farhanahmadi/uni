@@ -14,6 +14,7 @@ import { useGetUser } from "@/hooks/useGetUser";
 
 function Header() {
   const { data: user, isPending } = useGetUser();
+  console.log(user);
   return (
     <div
       className={`${
