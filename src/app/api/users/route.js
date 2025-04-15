@@ -35,6 +35,29 @@ export async function POST(NextRequest) {
   const OtpExpiresIn = new Date(Date.now() + 2 * 60 * 1000);
 
   try {
+    const usersList = await getAllUsers();
+
+    const exsistUser = usersList.find(
+      (item) => item.phoneNumber == user.phoneNumber
+    );
+
+    if (exsistUser) {
+      await Users.updateOne(
+        { phoneNumber: user.phoneNumber },
+        {
+          $set: {
+            otp: {
+              code: OtpCreator,
+              expiresIn: OtpExpiresIn,
+            },
+          },
+        }
+      );
+      return NextResponse.json(
+        { message: "کد تایید با موفقیت ارسال شد", usersList },
+        { status: 201 }
+      );
+    }
     // create new user
     await Users.create({
       phoneNumber: user.phoneNumber,
@@ -49,7 +72,6 @@ export async function POST(NextRequest) {
       ),
       refreshToken: signJWT({ sessionId: session.sessionId }, "1y"),
     });
-    const usersList = await getAllUsers();
     return NextResponse.json(
       { message: "کد تایید با موفقیت ارسال شد", usersList },
       { status: 201 }
